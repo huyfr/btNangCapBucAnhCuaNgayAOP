@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    let query = 'https://api.nasa.gov/planetary/apod?api_key=puwtpoLlfYpxhA6IQBAneoO0B0mejMe4OwotnWqq';
+    let request = new XMLHttpRequest();
+    request.open('GET', query);
+    request.onload = function () {
+        if (request.status === 200) {
+            let response = JSON.parse(request.responseText);
+            document.getElementById('img-of-the-day').setAttribute('src', response.url);
+        }
+    };
+    request.send();
+</script>
+<body>
+<img id="img-of-the-day" alt="nasa">
+<form th:action="@{/result}" method="post" th:object="${image}">
+    <table>
+        <tr>
+            <td>Mark: </td>
+            <td>
+                <select th:field="*{mark}">
+                    <option th:value="1" th:text="1"></option>
+                    <option th:value="2" th:text="2"></option>
+                    <option th:value="3" th:text="3"></option>
+                    <option th:value="4" th:text="4"></option>
+                    <option th:value="5" th:text="5"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Author: </td>
+            <td><input type="text" th:field="*{author}"></td>
+        </tr>
+        <tr>
+            <td>Feedback: </td>
+            <td><textarea th:field="*{feedback}" cols="30" rows="10"></textarea></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Save"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

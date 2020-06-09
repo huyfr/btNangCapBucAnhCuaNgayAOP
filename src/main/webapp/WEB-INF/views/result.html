@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Mark</td>
+        <td>Author</td>
+        <td>Feedback</td>
+    </tr>
+    <th:block th:each="image : ${images}">
+        <tr>
+            <td th:text="${image.id}"></td>
+            <td th:text="${image.mark}"></td>
+            <td th:text="${image.author}"></td>
+            <td th:text="${image.feedback}"></td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <a th:href="@{'/result'(page=${images.number - 1})}" th:if="${images.hasPrevious()}">Previous</a>
+    <span th:text="${images.number + 1}"></span>/<span th:text="${images.totalPages}"></span>
+    <a th:href="@{'/result'(page=${images.number + 1})}" th:if="${images.hasNext()}">Next</a>
+</div>
+</body>
+</html>
